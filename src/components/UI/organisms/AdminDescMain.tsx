@@ -130,13 +130,30 @@ const AdminDescMain = observer((): JSX.Element => {
   const { setSelectedContent } = ApplyMenuStore;
   const params: IDProp = useParams();
   const history = useHistory();
-  console.log(params);
+  // console.log(params);
+
+  const requestHeaders: HeadersInit = new Headers();
+
+  requestHeaders.set("Content-Type", "application/json");
+  requestHeaders.set(
+    "Authorization",
+    sessionStorage
+      ?.getItem("TOKEN")
+      ?.slice(0, sessionStorage.getItem("TOKEN")!.length) || "no token"
+  );
 
   useEffect(() => {
-    fetch(`${Recruits}/${params.id}`)
+    fetch(`http://192.168.35.5:8000/recruits/admin/${params.id}`, {
+      method: "GET",
+      headers: requestHeaders,
+    })
       .then(res => res.json())
       .then(data => {
         setSelectedContent(data.result);
+        console.log(data.result);
+      })
+      .catch(error => {
+        console.error(error);
       });
   }, []);
 
@@ -147,7 +164,7 @@ const AdminDescMain = observer((): JSX.Element => {
         <Sidewrap>
           <Sidebutton>수정</Sidebutton>
           <Sidebutton>삭제</Sidebutton>
-          <span>게시자 : 조기영</span>
+          <span>게시자 : {SelectedContent.author_name}</span>
         </Sidewrap>
       </Wrap>
       <InfoBox>
@@ -165,7 +182,9 @@ const AdminDescMain = observer((): JSX.Element => {
           </DeadlineWrapper>
         </HeadBox>
         <BtnBox>
-          <ModRecruitBtn>지원자 리스트(5)</ModRecruitBtn>
+          <ModRecruitBtn>
+            지원자 리스트({SelectedContent.num_applicants})
+          </ModRecruitBtn>
         </BtnBox>
       </InfoBox>
       <DescriptionBox>

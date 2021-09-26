@@ -22,11 +22,10 @@ export interface AdminToday {
 
 export interface AdminRecentApplicant {
   created_at: string;
-  new: boolean;
+  log: boolean;
   position_title: string;
   content: Content;
   deadline: string;
-
   recruit_id: number[];
 }
 
@@ -38,4 +37,15 @@ export interface BasicInfotype {
 
 export interface Content {
   basicInfo: BasicInfotype;
+}
+
+export interface AdminRecentApplicant1 {
+  application_id: number;
+  created_at: string;
+  user_name: string;
+  user_email: string;
+  user_phoneNumber: string;
+  position_title: string[];
+  career_type: string[];
+  log: boolean;
 }

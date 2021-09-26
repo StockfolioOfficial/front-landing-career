@@ -33,6 +33,9 @@ function ApplyList(): JSX.Element {
         setViewContent(data.results);
         // setViewContent(data.results.filter(isDev));
         setClicked("전체");
+      })
+      .catch(error => {
+        console.error("[에러발생]", error);
       });
   }, []);
 

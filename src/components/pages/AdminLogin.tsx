@@ -80,7 +80,7 @@ const AdminLogin = observer((): JSX.Element => {
   };
 
   const fetchLogin = () => {
-    return fetch("http://10.58.1.177:8000/users/signin", {
+    return fetch("http://192.168.35.5:7800/users/signin", {
       method: "POST",
       body: JSON.stringify({
         email: userInput.email,
@@ -98,6 +98,9 @@ const AdminLogin = observer((): JSX.Element => {
             "아이디와 비밀번호를 확인해주세요!\n기타사항은 관리자에게 문의하세요"
           );
         }
+      })
+      .catch(error => {
+        console.error("[에러발생]", error);
       });
   };
 

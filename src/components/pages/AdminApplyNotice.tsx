@@ -45,7 +45,7 @@ const AdminApplyNotice = observer((): JSX.Element => {
   );
 
   useEffect(() => {
-    fetch("http://192.168.35.101:8000/recruits/admin", {
+    fetch("http://192.168.35.101:8000/applications/admin/applicator", {
       method: "GET",
       headers: requestHeaders,
     })
@@ -53,8 +53,11 @@ const AdminApplyNotice = observer((): JSX.Element => {
       .then(data => {
         setTotalContentAdmin(data.results);
         // setViewContent(data.results.slice(0, 2));
-        setViewContentAdmin(data.results);
+        // setViewContentAdmin(data.results);
         setClickedAdmin("전체");
+      })
+      .catch(error => {
+        console.error(error);
       });
   }, []);
 

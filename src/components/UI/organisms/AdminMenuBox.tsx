@@ -44,18 +44,21 @@ const AdminMenuBox = observer((): JSX.Element => {
   requestHeaders.set(
     "Authorization",
     sessionStorage
-      ?.getItem("login")
-      ?.slice(0, sessionStorage.getItem("login")!.length) || "no token"
+      ?.getItem("TOKEN")
+      ?.slice(0, sessionStorage.getItem("TOKEN")!.length) || "no token"
   );
 
   useEffect(() => {
-    fetch("http://10.58.1.177:8000/recruits/admin/dashboard", {
+    fetch("http://192.168.35.5:7800/recruits/admin/dashboard", {
       method: "GET",
       headers: requestHeaders,
     })
       .then(res => res.json())
       .then(data => {
         setMenu(data.results);
+      })
+      .catch(error => {
+        console.error(error);
       });
   }, []);
 

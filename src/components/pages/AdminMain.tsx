@@ -29,19 +29,14 @@ const AdminMain = observer((): JSX.Element => {
     AdminApplyMenuStore;
   const { setApplicant } = AdminApplicantStore;
 
-  // const login = sessionStorage.setItem(
-  //   "login",
-  //   " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiYWRtaW4ifQ.-Pea-liRXYLQ5sYBSgNpT3h6VaMJ7tJ66LePoQakHj4"
-  // );
-
   const requestHeaders: HeadersInit = new Headers();
 
   requestHeaders.set("Content-Type", "application/json");
   requestHeaders.set(
     "Authorization",
     sessionStorage
-      ?.getItem("login")
-      ?.slice(0, sessionStorage.getItem("login")!.length) || "no token"
+      ?.getItem("TOKEN")
+      ?.slice(0, sessionStorage.getItem("TOKEN")!.length) || "no token"
   );
 
   useEffect(() => {
@@ -54,25 +49,30 @@ const AdminMain = observer((): JSX.Element => {
     //     setClickedAdmin("전체");
     //   });
 
-    fetch("http://192.168.35.101:8000/recruits/admin/recruit-list", {
+    fetch("http://192.168.35.5:7800/recruits/admin/recruit-list", {
       method: "GET",
       headers: requestHeaders,
     })
       .then(res => res.json())
       .then(data => {
         setTotalContentAdmin(data.results);
-        // setViewContent(data.results.slice(0, 2));
         setViewContentAdmin(data.results.slice(0, 4));
         setClickedAdmin("전체");
+      })
+      .catch(error => {
+        console.error(error);
       });
 
-    fetch("http://10.58.1.177:8000/applications", {
+    fetch("http://192.168.35.101:8000/applications/admin/applicator", {
       method: "GET",
       headers: requestHeaders,
     })
       .then(res => res.json())
       .then(data => {
         setApplicant(data.results.slice(0, 4));
+      })
+      .catch(error => {
+        console.error(error);
       });
   }, []);
 

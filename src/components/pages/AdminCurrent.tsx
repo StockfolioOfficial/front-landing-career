@@ -43,6 +43,9 @@ const AdminCurrent = observer((): JSX.Element => {
       .then(res => res.json())
       .then(data => {
         setApplicant(data.results);
+      })
+      .catch(error => {
+        console.error("[에러발생]", error);
       });
   }, []);
 

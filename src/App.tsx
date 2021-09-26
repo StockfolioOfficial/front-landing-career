@@ -16,6 +16,7 @@ import AdminNav from "./components/pages/AdminNav";
 import Admin from "./components/pages/Admin";
 import AdminCurrent from "./components/pages/AdminCurrent";
 import AdminApplyNotice from "./components/pages/AdminApplyNotice";
+import NotFound from "./components/pages/NotFound";
 
 const RecruitNav = [
   "/recruit",
@@ -41,6 +42,7 @@ const AdminNavbar = [
   "/admin/applynotice",
   "/admin",
   "/admin/applicantlist",
+  "/admin/applicantlist/:id",
 ];
 
 function App(): JSX.Element {
@@ -81,7 +83,13 @@ function App(): JSX.Element {
           path="/admin/applicantlist"
           component={AdminApplicantList}
         />
+        <Route
+          exact
+          path="/admin/applicantlist/:id"
+          component={AdminApplicantList}
+        />
         <Route exact path="/admin/current" component={AdminCurrent} />
+        <Route path="*" component={NotFound} />
       </Switch>
       <Switch>
         <Route exact path={RecruitNav} component={Footer} />

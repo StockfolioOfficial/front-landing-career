@@ -131,6 +131,9 @@ const ApplyDescMain = observer((): JSX.Element => {
       .then(res => res.json())
       .then(data => {
         setSelectedContent(data.result);
+      })
+      .catch(error => {
+        console.error("[에러발생]", error);
       });
   }, []);
 

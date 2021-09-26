@@ -5,7 +5,7 @@ import { observer } from "mobx-react";
 import adminMainMenu from "../../../assets/data/adminMainMenu";
 import theme from "../../../styles/theme";
 import AdminApplicantStore from "../../../stores/AdminApplicantStore";
-import { AdminRecentApplicant } from "../../../models/adminMainMenu";
+import { AdminRecentApplicant1 } from "../../../models/adminMainMenu";
 
 const AdminNav = styled.ul`
   font-size: 18px;
@@ -131,19 +131,19 @@ const AdminMenuApplicant = observer((): JSX.Element => {
           <NavButton onClick={gotodetail}>전체보기</NavButton>
         </AdminNav>
       )}
-      {toJS(ApplicantList).map((data: AdminRecentApplicant) => {
+      {toJS(ApplicantList).map((data: AdminRecentApplicant1) => {
         return (
           <Applicant
             key={data.created_at}
-            to={`/admin/applicant/${Number(data.recruit_id)}`}
+            to={`/admin/applicant/${data.application_id}`}
           >
             <TitleWrap>
               {pathname === "/admin/current" && (
                 <Title>{data.position_title} 채용</Title>
               )}
               <NameWrap>
-                <Name>{data.content.basicInfo.userName}</Name>
-                {data.new ? null : (
+                <Name>{data.user_name}</Name>
+                {data.log ? null : (
                   <Label2>
                     <span>new</span>
                   </Label2>
@@ -152,11 +152,10 @@ const AdminMenuApplicant = observer((): JSX.Element => {
             </TitleWrap>
             <ContentWrap>
               <Career>
-                4년 2개월 <span>|</span> {data.deadline}
+                4년 2개월 <span>|</span> {data.created_at}
               </Career>
               <Email>
-                {data.content.basicInfo.email} <span>|</span>{" "}
-                {data.content.basicInfo.phoneNumber}
+                {data.user_email} <span>|</span> {data.user_phoneNumber}
               </Email>
             </ContentWrap>
           </Applicant>
