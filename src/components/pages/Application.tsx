@@ -25,7 +25,7 @@ import ApplicationProject from "../UI/organisms/ApplicationProject";
 import StyledAlert from "../UI/molecules/StyledAlert";
 
 import theme from "../../styles/theme";
-import { Recruits } from "../../config";
+import { ApplicationsAdmin } from "../../config";
 
 import handleCheckRequired from "../../utils/handleCheckRequired";
 import handleAppendForm from "../../utils/handleAppendForm";
@@ -63,7 +63,7 @@ const Application = observer(() => {
   async function postData(methodType: string) {
     const formData = handleAppendForm();
     const [status, response] = await fetchData(
-      `${Recruits}/${params.id}/applications`,
+      `${ApplicationsAdmin}/${params.id}`,
       {
         method: methodType,
         headers: {
@@ -102,7 +102,7 @@ const Application = observer(() => {
   async function getData() {
     const listInputKeys = Object.keys(applicationListDefaultForm);
     const [status, response] = await fetchData(
-      `${Recruits}/${params.id}/applications`,
+      `${ApplicationsAdmin}/${params.id}`,
       {
         headers: {
           Authorization: HandleToken.getUserToken(),
